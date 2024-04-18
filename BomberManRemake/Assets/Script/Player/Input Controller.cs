@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.WSA;
+
 
 public class InputController : MonoBehaviour
 {
     Input input;
     Vector2 move;
-    [SerializeField]float moveTime;
-    [SerializeField] GameObject bomb;     
-    bool canMove=true;
+    Rigidbody rb;
+    [SerializeField] Bomb bomb;
+    [SerializeField] float speed;
 
 
     private void Awake()
     {
+        rb= GetComponent<Rigidbody>();
         input = new Input();
     }
 
@@ -30,33 +29,19 @@ public class InputController : MonoBehaviour
         input.Disable();
         input.Player.Movement.performed -= MovePerformed;
         input.Player.Movement.canceled -= MoveCanceled;
-        input.Player.Bomb.performed += Launch;
+        input.Player.Bomb.performed -= Launch;
     }
 
     private void MovePerformed(InputAction.CallbackContext value)
     {
         move = value.ReadValue<Vector2>();
-        transform.position += new Vector3(move.x, 0, move.y);
-
+        rb.velocity = new Vector3(move.x, 0, move.y) * speed;
     }
     private void MoveCanceled(InputAction.CallbackContext value)
     {
-        move = Vector2.zero;
-    }
-
-    IEnumerator Move() {
-        canMove = false;
-        yield return new WaitForSeconds(moveTime);
-        transform.position += new Vector3(move.x, 0, move.y);
-        canMove = true;
-    }
-
-    private void Update()
-    {
-        if (input.Player.Movement.IsPressed()&&canMove)
-        {
-            StartCoroutine(Move());
-        }
+        Vector3 pos = transform.position;
+        transform.position = new Vector3(Mathf.Round(pos.x), pos.y, Mathf.Round(pos.z));
+        rb.velocity = Vector2.zero;
     }
 
     private void Launch(InputAction.CallbackContext value)

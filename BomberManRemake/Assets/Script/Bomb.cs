@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        Vector3 pos = transform.position;
+        transform.position = new Vector3(Mathf.Round(pos.x), 1, Mathf.Round(pos.z));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
