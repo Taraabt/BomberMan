@@ -1,19 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.WSA;
 
 public class InputController : MonoBehaviour
 {
     Input input;
     Vector2 move;
-    Rigidbody rb;
-    [SerializeField] Bomb bomb;
-    [SerializeField] float speed;
+    [SerializeField] float moveTime;
+    [SerializeField] GameObject bomb;
+    bool canMove = true;
 
 
     private void Awake()
     {
-        rb= GetComponent<Rigidbody>();
         input = new Input();
     }
 
@@ -29,24 +30,40 @@ public class InputController : MonoBehaviour
         input.Disable();
         input.Player.Movement.performed -= MovePerformed;
         input.Player.Movement.canceled -= MoveCanceled;
-        input.Player.Bomb.performed -= Launch;
+        input.Player.Bomb.performed += Launch;
     }
 
     private void MovePerformed(InputAction.CallbackContext value)
     {
         move = value.ReadValue<Vector2>();
-        rb.velocity = new Vector3(move.x, 0, move.y) * speed;
+        transform.position += new Vector3(Mathf.Round(move.x), 0, Mathf.Round(move.y));
+
     }
     private void MoveCanceled(InputAction.CallbackContext value)
     {
-        Vector3 pos = transform.position;
-        transform.position = new Vector3(Mathf.Round(pos.x), pos.y, Mathf.Round(pos.z));
-        rb.velocity = Vector2.zero;
+        move = Vector2.zero;
+    }
+
+    IEnumerator Move()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(moveTime);
+        transform.LookAt(new Vector3(Mathf.Round(move.x), 0, Mathf.Round(move.y)));
+        transform.position += new Vector3(Mathf.Round(move.x), 0, Mathf.Round(move.y));
+        canMove = true;
+    }
+
+    private void Update()
+    {
+        if (input.Player.Movement.IsPressed() && canMove)
+        {
+            StartCoroutine(Move());
+        }
     }
 
     private void Launch(InputAction.CallbackContext value)
     {
-        Instantiate(bomb,transform.position,Quaternion.identity);
+        Instantiate(bomb, transform.position, Quaternion.identity);
     }
 
 
