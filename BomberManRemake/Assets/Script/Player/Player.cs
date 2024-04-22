@@ -35,9 +35,5 @@ public class Player : MonoBehaviour
             checkObject= false;
         }
     }
-    private void OnDrawGizmos()
-    {
-        Debug.DrawRay(transform.position, Vector3.forward,Color.cyan);
-    }
 
 }
