@@ -1,17 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.WSA;
 
 public class InputController : MonoBehaviour
 {
     Input input;
     Vector2 move;
     [SerializeField] float moveTime;
-    [SerializeField] GameObject bomb;
+    [SerializeField] Bomb bomb;
     bool canMove = true;
-
+    bool isBlocked => Player.instance.checkObject;
 
     private void Awake()
     {
@@ -36,20 +34,29 @@ public class InputController : MonoBehaviour
     private void MovePerformed(InputAction.CallbackContext value)
     {
         move = value.ReadValue<Vector2>();
-        transform.position += new Vector3(Mathf.Round(move.x), 0, Mathf.Round(move.y));
-
+        move = new Vector2(Mathf.Round(move.x), Mathf.Round(move.y));
+        Debug.Log(move);
+        Player.instance.CheckMove(move);
+        if (isBlocked==false)
+        {
+            transform.position += new Vector3(Mathf.Round(move.x), 0, Mathf.Round(move.y));
+        }
     }
     private void MoveCanceled(InputAction.CallbackContext value)
     {
         move = Vector2.zero;
     }
 
+
     IEnumerator Move()
     {
         canMove = false;
         yield return new WaitForSeconds(moveTime);
-        transform.LookAt(new Vector3(Mathf.Round(move.x), 0, Mathf.Round(move.y)));
-        transform.position += new Vector3(Mathf.Round(move.x), 0, Mathf.Round(move.y));
+        Player.instance.CheckMove(move);
+        if (isBlocked == false)
+        {
+            transform.position += new Vector3(Mathf.Round(move.x), 0, Mathf.Round(move.y));
+        }
         canMove = true;
     }
 
