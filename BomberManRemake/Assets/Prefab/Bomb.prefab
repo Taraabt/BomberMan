@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 3634324232415449826}
   - component: {fileID: 3760260017847218882}
   - component: {fileID: 1006069195985515844}
-  - component: {fileID: 2176108540117171411}
+  - component: {fileID: 3164527569543193049}
   m_Layer: 6
   m_Name: Fuse
   m_TagString: Untagged
@@ -131,7 +131,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2176108540117171411
+--- !u!65 &3164527569543193049
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,8 +150,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
-  m_Center: {x: 0.000000059604645, y: 0.00000047683716, z: -0.00000008940697}
+  m_Size: {x: 1, y: 1.9999999, z: 1.0000001}
+  m_Center: {x: 0.00000005960464, y: 0.00000047683716, z: -0.00000008940696}
 --- !u!1 &6888387813151482202
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 2785511362498240478}
   - component: {fileID: 8304764906251194477}
   - component: {fileID: 7064830319650888014}
-  - component: {fileID: 3333702583402511827}
+  - component: {fileID: 1963543900427171234}
   m_Layer: 6
   m_Name: Bomb
   m_TagString: Untagged
@@ -236,7 +236,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3333702583402511827
+--- !u!135 &1963543900427171234
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -255,5 +255,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.50000006
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

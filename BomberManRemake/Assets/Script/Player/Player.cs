@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
     public static Player instance;
     [SerializeField]LayerMask layer;
     public bool spawnBomb=false;
+    public delegate void EnemyDeath();
+    public static event EnemyDeath playerdie;
 
     private void Start()
     {
@@ -39,6 +41,14 @@ public class Player : MonoBehaviour
         else
         {
             checkObject = false;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<Enemy>() != null)
+        {
+            playerdie();
         }
     }
 

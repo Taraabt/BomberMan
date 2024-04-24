@@ -4,6 +4,8 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     [SerializeField] float bombTimer;
+    public delegate void BombDeath();
+    public static event BombDeath playerdie;
     IEnumerator LifetTime()
     {
         Player.instance.spawnBomb = true;
@@ -19,6 +21,10 @@ public class Bomb : MonoBehaviour
             {
                 Destroy(collider[i].gameObject);   
             }
+            else if (layer == 3)
+            {
+                playerdie();
+            }
         }
         for (int i = 0; i < collider2.Length; i++)
         {
@@ -27,6 +33,8 @@ public class Bomb : MonoBehaviour
             if (layer>7)
             {
                 Destroy(collider2[i].gameObject);
+            }else if(layer==3) {
+                playerdie();
             }
         }
         Player.instance.spawnBomb = false;

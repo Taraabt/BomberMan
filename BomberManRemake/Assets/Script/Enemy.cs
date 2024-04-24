@@ -15,15 +15,20 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Move()
     {
+        int i = 0;
         timer = false;
         yield return new WaitForSeconds(waitTime);
         int rand = Random.Range(0, 4);
         canMove=Physics.Raycast(transform.position,position[rand],1f,layer); 
-        while (canMove){ 
+        while (canMove&&i<=10){ 
             rand= Random.Range(0, 4);
             canMove = Physics.Raycast(transform.position, position[rand], 1f, layer);
+            i++;
         }
-        transform.position+=position[rand];
+        if (!canMove)
+        {
+            transform.position += position[rand];
+        }
         
 
         timer = true;
