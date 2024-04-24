@@ -32,7 +32,7 @@ public class Bomb : MonoBehaviour
         Player.instance.spawnBomb = false;
         Destroy(gameObject);
     }
-    private void OnEnable()
+    private void Awake()
     {
         StartCoroutine(LifetTime());
     }

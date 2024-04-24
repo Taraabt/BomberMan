@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 2}
-  m_LocalScale: {x: 0.46453866, y: 0.46453866, z: 0.46453866}
+  m_LocalScale: {x: 0.75635356, y: 0.75635356, z: 0.75635356}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3634324232415449826}
@@ -47,9 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombTimer: 3
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!1 &6639987919883429497
 GameObject:
   m_ObjectHideFlags: 0

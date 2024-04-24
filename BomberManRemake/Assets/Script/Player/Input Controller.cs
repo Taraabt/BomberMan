@@ -4,15 +4,18 @@ using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
-    Input input;
+    public Input input;
     Vector2 move;
     [SerializeField] float moveTime;
     [SerializeField] Bomb bomb;
     bool canMove = true;
     bool isBlocked => Player.instance.checkObject;
+    public static InputController instance;
 
     private void Awake()
     {
+        if (instance == null)
+            instance = this;
         input = new Input();
     }
 
@@ -70,9 +73,9 @@ public class InputController : MonoBehaviour
 
     private void Launch(InputAction.CallbackContext value)
     {
-        Vector3 target = new Vector3(transform.position.x,transform.position.y-0.5f,transform.position.z);
+        Vector3 target = new Vector3(transform.position.x,bomb.transform.position.y,transform.position.z);
         if(!Player.instance.spawnBomb) 
-            Instantiate(bomb, transform.position, Quaternion.identity);
+            Instantiate(bomb, target, Quaternion.identity);
     }
 
 
