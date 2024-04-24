@@ -28,6 +28,12 @@ public class GameManager : MonoBehaviour
         lose.gameObject.SetActive(true);
     }
 
+    private void Start()
+    {
+        Time.timeScale = 0;
+        InputController.instance.input.Disable();
+    }
+
     private void EnemyCheck()
     {
         Enemy enemy = (Enemy)FindObjectOfType(typeof(Enemy));
