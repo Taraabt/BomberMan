@@ -60,7 +60,7 @@ public class InputController : MonoBehaviour
         canMove = true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (input.Player.Movement.IsPressed() && canMove)
         {
@@ -70,7 +70,9 @@ public class InputController : MonoBehaviour
 
     private void Launch(InputAction.CallbackContext value)
     {
-        Instantiate(bomb, transform.position, Quaternion.identity);
+        Vector3 target = new Vector3(transform.position.x,transform.position.y-0.5f,transform.position.z);
+        if(!Player.instance.spawnBomb) 
+            Instantiate(bomb, transform.position, Quaternion.identity);
     }
 
 
